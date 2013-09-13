@@ -1,0 +1,9 @@
+<h1>Download Tool</h1>
+
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+<form action="/search/" method="post">
+{% csrf_token %}
+<input type="text" name="url" value="" placeholder="Enter some search terms here" style="width:30%;" /><br />
+<input type="submit" value="SEARCH!" />
+</form>
