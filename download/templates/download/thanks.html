@@ -1,0 +1,12 @@
+{% extends 'download/layout.html' %}
+{% block content %}
+<div class="container">
+
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+<h2>Thanks...</h2>
+<p>We are busy preparing your files for download. Once they are ready, you will receive and email with a link allowing you to download them all at once!</p>
+<a class="btn btn-sm" href="/">Try another search</a>
+
+</div>
+{% endblock %}

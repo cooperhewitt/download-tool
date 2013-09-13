@@ -1,9 +1,14 @@
-<h1>Download Tool</h1>
+{% extends 'download/layout.html' %}
+{% block content %}
+<div class="container">
 
 {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
 
-<form action="/search/" method="post">
-{% csrf_token %}
-<input type="text" name="url" value="" placeholder="Enter some search terms here" style="width:30%;" /><br />
-<input type="submit" value="SEARCH!" />
+<form class="form-search" action="/search/" method="post">
+	{% csrf_token %}
+	<h2 class="form-search-heading">Please enter some search terms</h2>
+	<input type="text"  class="input-block-level" name="query" placeholder="Search me">
+	<button class="btn btn-sm btn-primary" type="submit">Search</button>
 </form>
+</div>
+{% endblock %}

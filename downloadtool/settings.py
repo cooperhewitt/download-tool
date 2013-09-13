@@ -1,4 +1,5 @@
 # Django settings for downloadtool project.
+import os
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -52,7 +53,7 @@ MEDIA_ROOT = ''
 MEDIA_URL = ''
 
 # Static asset configuration
-import os
+
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 STATIC_ROOT = 'staticfiles'
 STATIC_URL = '/static/'

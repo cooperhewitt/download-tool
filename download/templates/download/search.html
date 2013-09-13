@@ -1,0 +1,28 @@
+{% extends 'download/layout.html' %}
+{% block content %}
+<div class="container">
+
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+<form action="/thanks/" method="post">
+		{% csrf_token %}
+	<h2>Prepare your download</h2>
+<input type="text" name="email" placeholder="Enter your email address"><br />
+<button class="btn btn-sm btn-primary" type="submit">Submit</button>
+<a class="btn btn-sm" href="/">Try another search</a>
+</form>
+
+<ul class="thumbnails">
+		{% for obj in objects %}
+		<li class="span2">
+		<div class="thumbnail">
+			{% for img in obj.images %}{% if forloop.first %}<img src="{{ img.n.url }}" />{% endif %}{% endfor %}
+			<p>Accession Number: {{ obj.accession_number }}</p>
+			<p>Object ID: <a href="http://collection.cooperhewitt.org/objects/{{ obj.id }}">{{ obj.id }}</a></p>
+		</div>
+		{% endfor %}
+		</li>
+</ul>
+
+{{ results }}
+{% endblock %}
