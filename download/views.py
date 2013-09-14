@@ -67,12 +67,26 @@ def thanks(request):
 
 def account(request):
 	if not request.user.is_authenticated():
-	        return redirect('/login/?next=%s' % request.path)
+		return redirect('/login/?next=%s' % request.path)
 	else:
 		searches = Download.objects.filter(user=request.user).order_by('-date_saved')
 		context = {'searches':searches}
 		return render(request, 'download/account.html', context)
-
+		
+def account_password(request):
+	if not request.user.is_authenticated():
+	        return redirect('/login/?next=%s' % request.path)
+	else:
+		context = {}
+		return render(request, 'download/account_password.html', context)
+		
+def account_delete(request):
+	if not request.user.is_authenticated():
+	        return redirect('/login/?next=%s' % request.path)
+	else:
+		context = {}
+		return render(request, 'download/account_delete.html', context)
+	
 def login_page(request):
 	
 	if request.GET.get('next'):
