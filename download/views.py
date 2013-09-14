@@ -56,7 +56,7 @@ def thanks(request):
 		args = { 'events': events }
 		
 		rsp = api.call(method, **args)
-	
+		print rsp
 		context = {}
 		return render(request, 'download/thanks.html', context)	
 
