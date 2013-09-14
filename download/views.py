@@ -61,7 +61,7 @@ def thanks(request):
 		return render(request, 'download/thanks.html', context)	
 
 def account(request):
-	searches = Download.objects.filter(user=request.user)
+	searches = Download.objects.filter(user=request.user).order_by('-date_saved')
 	context = {'searches':searches}
 	return render(request, 'download/account.html', context)
 
