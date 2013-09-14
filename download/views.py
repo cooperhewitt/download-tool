@@ -24,14 +24,13 @@ def search(request):
 	else:
 		results = search_objects(query)
 		objects = results['objects']
-		context = {'objects':objects}
+		context = {'objects':objects, 'query':query}
 		return render(request, 'download/search.html', context)
 	
 def thanks(request):
 	try:
-		#email = request.POST['email']
-		#object_ids = request.POST['object_ids']
-		search_string = request.POST['search_string']
+		search_terms = request.POST['search_terms']
+		object_ids = request.POST['object_ids']
 	except (KeyError, Download.DoesNotExist):
 		return redirect('/')
 	else:
@@ -41,18 +40,30 @@ def thanks(request):
 		event = {
 			'event_id': event_id,
 			'action': 'download_tool',
-			'search_string': search_string,
-			 #'object_ids': object_ids
+			'email': request.user.email,
+			'object_ids': object_ids,
+			'search_terms': search_terms
 		}
-	
+		
+		events = json.dumps([event])
+		
+		# write the search to the db...
+		e = Download(user=request.user, search_terms=search_terms)
+		e.save()
+		
 		api = cooperhewitt.api.client.OAuth2(access_token, hostname=hostname)
 		method = 'millerfox.eventserver.registerEvents'
 		args = { 'events': events }
 		
 		rsp = api.call(method, **args)
 	
-		context = {'rsp':rsp}
+		context = {}
 		return render(request, 'download/thanks.html', context)	
+
+def account(request):
+	searches = Download.objects.filter(user=request.user)
+	context = {'searches':searches}
+	return render(request, 'download/account.html', context)
 
 def login_page(request):
 	context = {}

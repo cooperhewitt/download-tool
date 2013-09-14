@@ -7,12 +7,12 @@
 <form action="/thanks/" method="post">
 		{% csrf_token %}
 	<h2>Prepare your download</h2>
-<input type="text" name="email" placeholder="Enter your email address"><br />
-<input type="hidden" name="object_ids" value={{ objects }}>
+<input type="hidden" name="object_ids" value="{{ objects }}">
+<input type="hidden" name="search_terms" value="{{ query }}">
 <button class="btn btn-sm btn-primary" type="submit">Submit</button>
 <a class="btn btn-sm" href="/">Try another search</a>
 </form>
-
+<p>You searched for: {{ query }}</p>
 <ul class="thumbnails">
 		{% for obj in objects %}
 		<li class="span2">

@@ -1,0 +1,27 @@
+{% extends 'download/layout.html' %}
+{% block content %}
+<div class="container">
+
+<h2>Account info...</h2>
+
+
+<h3>Saved searches</h3>
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<th>Date Saved</th>
+			<th>Search Terms</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for search in searches %}
+  		<tr>
+	    	<td>{{ search.date_saved}}</td>
+	    	<td>{{ search.search_terms }}</td>
+	  	</tr> 
+		{% endfor %}
+	</tbody>
+</table>
+</div>
+
+{% endblock %}
