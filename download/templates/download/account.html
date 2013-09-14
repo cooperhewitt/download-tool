@@ -22,7 +22,7 @@
 					{% for search in searches %}
 			  		<tr>
 				    	<td>{{ search.date_saved}}</td>
-				    	<td><a href="/search/{{ search.search_terms }}">{{ search.search_terms }}</a></td>
+				    	<td><a href="/search/?query={{ search.search_terms }}">{{ search.search_terms }}</a></td>
 				  	</tr> 
 					{% endfor %}
 				</tbody>

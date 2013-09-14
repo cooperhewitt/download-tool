@@ -21,16 +21,25 @@ def about(request):
 	context = {}
 	return render(request, 'download/about.html', context)
 
-def search(request):	
-	try:
-		query = request.POST['query']
-	except (KeyError, Download.DoesNotExist):
-		return redirect('/')
-	else:
+def search(request):
+	if request.method == 'GET' and request.GET.get('query'):
+		query = request.GET.get('query')
 		results = search_objects(query)
 		objects = results['objects']
 		context = {'objects':objects, 'query':query}
 		return render(request, 'download/search.html', context)
+	elif request.method == 'POST':
+		try:
+			query = request.POST['query']
+		except (KeyError, Download.DoesNotExist):
+			return redirect('/')
+		else:
+			results = search_objects(query)
+			objects = results['objects']
+			context = {'objects':objects, 'query':query}
+			return render(request, 'download/search.html', context)
+	else:
+		return redirect('/')	
 	
 def thanks(request):
 	try:
