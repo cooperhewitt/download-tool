@@ -88,6 +88,13 @@ def account_password(request):
 	else:
 		context = {}
 		return render(request, 'download/account_password.html', context)
+
+def account_resend_password(request):
+	if request.user.is_authenticated():
+		return redirect('/')
+	else:
+		context = {}
+		return render(request, 'download/account_resend_password.html', context)
 		
 def account_delete(request):
 	if not request.user.is_authenticated():
