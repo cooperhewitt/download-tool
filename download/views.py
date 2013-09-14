@@ -9,7 +9,12 @@ access_token = os.environ['CH_API_KEY']
 hostname = os.environ['CH_API_HOST']
 
 def index(request):
-	context = {}
+	if request.GET.get('next'):
+		next = request.GET.get('next')
+	else:
+		next = '/'
+		
+	context = {'next':next}
 	return render(request, 'download/index.html', context)
 	
 def about(request):
@@ -61,23 +66,33 @@ def thanks(request):
 		return render(request, 'download/thanks.html', context)	
 
 def account(request):
-	searches = Download.objects.filter(user=request.user).order_by('-date_saved')
-	context = {'searches':searches}
-	return render(request, 'download/account.html', context)
+	if not request.user.is_authenticated():
+	        return redirect('/login/?next=%s' % request.path)
+	else:
+		searches = Download.objects.filter(user=request.user).order_by('-date_saved')
+		context = {'searches':searches}
+		return render(request, 'download/account.html', context)
 
 def login_page(request):
-	context = {}
+	
+	if request.GET.get('next'):
+		next = request.GET.get('next')
+	else:
+		next = '/'
+		
+	context = {'next':next}
 	
 	if request.method == 'POST':
 		username = request.POST['username']
 		password = request.POST['password']
+		next = request.POST['next']
 	
 		user = authenticate(username=username, password=password)
 	
 		if user is not None:
 			if user.is_active:
 				login(request, user)
-				return render(request, 'download/index.html', context)
+				return redirect(next)
 		else:
 			return render(request, 'download/login.html', context)
 	

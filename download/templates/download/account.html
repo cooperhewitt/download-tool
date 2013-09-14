@@ -4,24 +4,47 @@
 
 <h2>Account info...</h2>
 
+<div id="content">
+    <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
+        <li class="active"><a href="#searches" data-toggle="tab">Saved Searches</a></li>
+        <li><a href="#preferences" data-toggle="tab">Preferences</a></li>
+    </ul>
+    <div id="my-tab-content" class="tab-content">
+        <div class="tab-pane active" id="searches">
+				<table class="table table-striped">
+				<thead>
+					<tr>
+						<th>Date Saved</th>
+						<th>Search Terms</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for search in searches %}
+			  		<tr>
+				    	<td>{{ search.date_saved}}</td>
+				    	<td><a href="/search/{{ search.search_terms }}">{{ search.search_terms }}</a></td>
+				  	</tr> 
+					{% endfor %}
+				</tbody>
+				</table>
+        </div>
+        <div class="tab-pane" id="preferences">
+            <ul><li><a href="/account/password/">Update Password</a></li>
+				<li><a href="/account/delete/">Delete Account</a></li>
+			</ul>
+			
+        </div>
+    </div>
+</div>
 
-<h3>Saved searches</h3>
-<table class="table table-striped">
-	<thead>
-		<tr>
-			<th>Date Saved</th>
-			<th>Search Terms</th>
-		</tr>
-	</thead>
-	<tbody>
-		{% for search in searches %}
-  		<tr>
-	    	<td>{{ search.date_saved}}</td>
-	    	<td><a href="/search/{{ search.search_terms }}">{{ search.search_terms }}</a></td>
-	  	</tr> 
-		{% endfor %}
-	</tbody>
-</table>
+
+<script type="text/javascript">
+    jQuery(document).ready(function ($) {
+        $('#tabs').tab();
+    });
+</script>
+
+
 </div>
 
 {% endblock %}
