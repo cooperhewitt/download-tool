@@ -1,0 +1,20 @@
+{% extends "download/layout.html" %}
+
+{% block content %}
+
+{% if form.errors %}
+<p>Your username and password didn't match. Please try again.</p>
+{% endif %}
+
+<div class="container">
+
+      <form class="form-signin" action="/login/" method="post">
+	  {% csrf_token %}
+        <h2 class="form-signin-heading">Please sign in</h2>
+        <input type="text" name="username" class="input-block-level" placeholder="Username">
+        <input type="password" name="password" class="input-block-level" placeholder="Password">
+        <button class="btn btn-large btn-primary" type="submit">Sign in</button>
+      </form>
+
+</div> <!-- /container -->
+{% endblock %}

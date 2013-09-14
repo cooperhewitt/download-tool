@@ -16,7 +16,39 @@
   </head>
 
   <body>
+	<div class="navbar navbar-fixed-top navbar-inverse">
+	  <div class="navbar-inner">
+	    <div class="container">
+	      <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	      </a>
+	      <a class="brand" href="/">Download Tool</a>
 
+	      <div class="nav-collapse collapse">
+			<ul class="nav">
+				  <li><a href="/about/">About</a></li>
+			    </ul>
+			<ul class="nav pull-right">
+	{% if user.is_authenticated %}
+	            <li class="dropdown">
+	              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Hello {{ user.username }} <b class="caret"></b></a>
+	              <ul class="dropdown-menu">
+	                <li><a href="/logout/">Logout</a></li>
+	              </ul>
+	            </li>
+	{% else %}
+		
+				<li><a href="/login/" title="Sign In" id="signin" >Sign In</a></li>
+		
+	{% endif %}
+	          </ul>
+	      </div>
+
+	    </div>
+	  </div>
+	</div>
 	{% block content %}{% endblock %}
 
     <script src="{% static 'js/jquery-min.js' %}"></script>
